@@ -3,9 +3,10 @@ import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 
-import { name, lastName } from './bases/01-types.ts'
-import { pokemonsIds, cha } from './bases/02-objects.ts'
-import { Pokemon } from './bases/03-classes.ts'
+// import { name, lastName } from './bases/01-types.ts'
+// import { pokemonsIds } from './bases/02-objects.ts'
+// import { Pokemon } from './bases/03-classes.ts'
+import { charmander } from './bases/04-injection-dependency.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -24,9 +25,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </p>
   </div>
 	<div>
-		${ name } ${ lastName }
-		${ pokemonsIds.join(',') }
-		${ Pokemon }
+		${ charmander.name }
 	</div>
 `
 
