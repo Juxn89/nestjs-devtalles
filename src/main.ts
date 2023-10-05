@@ -4,7 +4,8 @@ import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 
 import { name, lastName } from './bases/01-types.ts'
-import { pokemonsIds } from './bases/02-objects.ts'
+import { pokemonsIds, cha } from './bases/02-objects.ts'
+import { Pokemon } from './bases/03-classes.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -25,6 +26,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 	<div>
 		${ name } ${ lastName }
 		${ pokemonsIds.join(',') }
+		${ Pokemon }
 	</div>
 `
 
