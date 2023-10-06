@@ -1,2 +1,6 @@
-# nestjs-devtalles
-Repositorio del curso del Nest.js en la plataforma de DevTalles
+# Nest.js
+## Instalaciones
+- Nest.js CLI: ```npm i -g @nestjs/cli```
+
+## Comandos
+- Versión de Nest.js: ```nest --version``` o ```nest -v```
