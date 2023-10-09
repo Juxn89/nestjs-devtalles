@@ -5,7 +5,7 @@ import {
 	Get,
 	NotFoundException,
 	Param,
-	ParseIntPipe,
+	ParseUUIDPipe,
 	Patch,
 	Post,
 	Put,
@@ -22,7 +22,7 @@ export class CarsController {
 	}
 
 	@Get(':id')
-	getCarById(@Param('id', ParseIntPipe) id: number) {
+	getCarById(@Param('id', new ParseUUIDPipe({ version: '5' })) id: string) {
 		const car = this.carsService.findByID(id);
 
 		if (!car) throw new NotFoundException(`Car with ID ${id} not found`);
@@ -36,17 +36,17 @@ export class CarsController {
 	}
 
 	@Put(':id')
-	updateCar(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
+	updateCar(@Param('id', ParseUUIDPipe) id: string, @Body() payload: any) {
 		return payload;
 	}
 
 	@Patch(':id')
-	updateModel(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
+	updateModel(@Param('id', ParseUUIDPipe) id: string, @Body() payload: any) {
 		return payload;
 	}
 
 	@Delete(':id')
-	deleteModel(@Param('id', ParseIntPipe) id: number) {
+	deleteModel(@Param('id', ParseUUIDPipe) id: string) {
 		return {
 			msg: 'Delete',
 			id,
