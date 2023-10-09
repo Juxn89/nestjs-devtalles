@@ -3,5 +3,7 @@
   "trailingComma": "all",
   "tabWidth": 2,
   "useTabs": true,
-  "editorconfig": true
+  "editorconfig": true,
+  "arrowParens": "avoid",
+  
 }
