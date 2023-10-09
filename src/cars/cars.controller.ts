@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 
 @Controller('cars')
@@ -11,13 +11,10 @@ export class CarsController {
 	}
 
 	@Get(':id')
-	getCarById(@Param('id') id: string) {
-		const index = Number(id);
+	getCarById(@Param('id', ParseIntPipe) id: number) {
+		if (id > this.carsService.findAll().length)
+			return { msg: `Car with ID ${id} not found` };
 
-		if (isNaN(index)) return { msg: 'ID parameter must be a number' };
-		if (index > this.carsService.findAll().length)
-			return { msg: `Car with ID ${index} not found` };
-
-		return this.carsService.findByID(index);
+		return this.carsService.findByID(id);
 	}
 }
