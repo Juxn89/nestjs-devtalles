@@ -29,7 +29,7 @@ export class CarsController {
 
 	@Put(':id')
 	updateCar(@Param('id', ParseUUIDPipe) id: string, @Body() payload: any) {
-		return payload;
+		return this.carsService.update(id, payload);
 	}
 
 	@Patch(':id')
@@ -39,9 +39,6 @@ export class CarsController {
 
 	@Delete(':id')
 	deleteModel(@Param('id', ParseUUIDPipe) id: string) {
-		return {
-			msg: 'Delete',
-			id,
-		};
+		return this.carsService.delete(id);
 	}
 }
