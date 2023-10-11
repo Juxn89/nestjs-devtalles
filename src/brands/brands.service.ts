@@ -6,13 +6,7 @@ import { v5 as uuid } from 'uuid';
 
 @Injectable()
 export class BrandsService {
-	private brands: Brand[] = [
-		{
-			id: uuid.URL,
-			name: 'Toyota',
-			createdAt: new Date().getTime(),
-		},
-	];
+	private brands: Brand[] = [];
 
 	create(createBrandDto: CreateBrandDto) {
 		const brand: Brand = {
@@ -55,5 +49,9 @@ export class BrandsService {
 	remove(id: string) {
 		this.brands = this.brands.filter(brand => brand.id !== id);
 		return this.brands;
+	}
+
+	fillBrandsWithSeedSata(seed: Brand[]) {
+		this.brands = seed;
 	}
 }

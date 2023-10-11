@@ -1,0 +1,269 @@
+{
+	"info": {
+		"_postman_id": "1ea3b398-68be-4d6b-a49f-f58ee52af1f5",
+		"name": "Nest.js - DevTalles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6694946"
+	},
+	"item": [
+		{
+			"name": "Dealership",
+			"item": [
+				{
+					"name": "Get all brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/brands/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["brands", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get brand by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/brands/123",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["brands", "123"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Brand",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Hyundai",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/brands/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["brands", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Brand",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Hyundai2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/brands/123",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["brands", "123"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Brand",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/brands/123",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["brands", "123"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cars/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get car by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cars/123",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", "123"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Car",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "brand",
+									"value": "Volvo",
+									"type": "text"
+								},
+								{
+									"key": "model",
+									"value": "XC40",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/cars/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", ""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Car",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "brand",
+									"value": "Volvo",
+									"type": "text"
+								},
+								{
+									"key": "model",
+									"value": "XC40",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/cars/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Model Car",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "brand",
+									"value": "Volvo",
+									"type": "text"
+								},
+								{
+									"key": "model",
+									"value": "XC40",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/cars/123",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", "123"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Car",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/cars/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["cars", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Seed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/seed/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "3000",
+							"path": ["seed", ""]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
