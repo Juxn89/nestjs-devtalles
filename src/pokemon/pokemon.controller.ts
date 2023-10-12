@@ -6,6 +6,8 @@ import {
 	Patch,
 	Param,
 	Delete,
+	ValidationPipe,
+	UsePipes,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
@@ -16,7 +18,9 @@ export class PokemonController {
 	constructor(private readonly pokemonService: PokemonService) {}
 
 	@Post()
+	@UsePipes(ValidationPipe)
 	create(@Body() createPokemonDto: CreatePokemonDto) {
+		createPokemonDto.name = createPokemonDto.name.toLocaleLowerCase();
 		return this.pokemonService.create(createPokemonDto);
 	}
 
