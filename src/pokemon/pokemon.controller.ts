@@ -8,6 +8,8 @@ import {
 	Delete,
 	ValidationPipe,
 	UsePipes,
+	HttpCode,
+	HttpStatus,
 } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
@@ -19,6 +21,7 @@ export class PokemonController {
 
 	@Post()
 	@UsePipes(ValidationPipe)
+	@HttpCode(HttpStatus.OK)
 	create(@Body() createPokemonDto: CreatePokemonDto) {
 		createPokemonDto.name = createPokemonDto.name.toLocaleLowerCase();
 		return this.pokemonService.create(createPokemonDto);
@@ -29,9 +32,9 @@ export class PokemonController {
 		return this.pokemonService.findAll();
 	}
 
-	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.pokemonService.findOne(+id);
+	@Get(':searchTerm')
+	findOne(@Param('searchTerm') searchTerm: string) {
+		return this.pokemonService.findOne(searchTerm);
 	}
 
 	@Patch(':id')
