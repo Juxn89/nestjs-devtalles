@@ -28,6 +28,16 @@ export class PokemonService {
 		}
 	}
 
+	async bulkCreate(createPokemonsDto: CreatePokemonDto[]) {
+		try {
+			console.log(createPokemonsDto);
+			const result = await this.pokemonModel.insertMany(createPokemonsDto);
+			return result;
+		} catch (error) {
+			this.handleException(error);
+		}
+	}
+
 	findAll() {
 		return `This action returns all pokemon`;
 	}

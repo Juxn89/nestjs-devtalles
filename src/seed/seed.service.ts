@@ -16,14 +16,13 @@ export class SeedService {
 			`${this.conf.pokeApiUrl}pokemon?limit=10`,
 		);
 
-		await data.results.forEach(async ({ name, url }) => {
+		const pokemons = data.results.map(({ name, url }) => {
 			const segments = url.split('/');
 			const pokemonNumber: number = +segments.at(-2);
-
-			console.log({ name, pokemonNumber });
-			await this.pokemonService.create({ name, number: pokemonNumber });
+			return { name, number: pokemonNumber };
 		});
 
+		await this.pokemonService.bulkCreate(pokemons);
 		return 'Seed executed!';
 	}
 }
