@@ -23,6 +23,7 @@ export class SeedService {
 			console.log({ name, pokemonNumber });
 			await this.pokemonService.create({ name, number: pokemonNumber });
 		});
-		return data.results;
+
+		return 'Seed executed!';
 	}
 }
