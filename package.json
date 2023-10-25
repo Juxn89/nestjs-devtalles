@@ -7,17 +7,20 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
+    "docker:mongo": "docker-compose up -d",
+    "docker:build": "docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build",
+    "docker:run": "docker-compose -f docker-compose.prod.yaml --env-file .env.prod up",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main",
+    "start": "nest start",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
