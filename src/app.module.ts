@@ -11,10 +11,14 @@ import { SeedModule } from './seed/seed.module';
 import { AxiosAdapter } from './common/adapters/axios.adapter';
 import { IHttpAdapter } from './common/interfaces/http-adapter.interface';
 import { config } from './config';
+import { JoiValidationSchema } from './config/joi.validations';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot({ load: [config] }),
+		ConfigModule.forRoot({
+			load: [config],
+			validationSchema: JoiValidationSchema,
+		}),
 		ServeStaticModule.forRoot({
 			rootPath: join(__dirname, '..', 'public'),
 		}),
