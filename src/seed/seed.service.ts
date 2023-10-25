@@ -11,13 +11,13 @@ export class SeedService {
 		private readonly httpAdapter: IHttpAdapter,
 	) {}
 
-	private readonly conf = config();
-
 	async executeSeed() {
+		const { pokeApi } = config();
+
 		await this.pokemonService.removeAll();
 
 		const response = await this.httpAdapter.get<PokeResponse>(
-			`${this.conf.pokeApiUrl}pokemon?limit=10`,
+			`${pokeApi.baseURL}pokemon?limit=${pokeApi.defaultLimit}`,
 		);
 
 		const pokemons = response.results.map(({ name, url }) => {
