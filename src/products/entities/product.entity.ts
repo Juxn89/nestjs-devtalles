@@ -27,19 +27,8 @@ export class Product {
 	gender: string
 
 	@BeforeInsert()
-	checkSlugInsert() {
-		if(!this.slug) {
-			this.slug = this.title
-		}
-
-		this.slug = this.slug
-			.toLowerCase()
-			.replaceAll(' ', '_')
-			.replaceAll("'", '')
-	}
-
 	@BeforeUpdate()
-	checkSlugUpdate() {
+	checkSlugInsert() {
 		if(!this.slug) {
 			this.slug = this.title
 		}
