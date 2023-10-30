@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Product } from './entities/product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import DB_ERROR_CODE from 'src/common/dbCodeErrors';
+import DbErrorsCode from 'src/common/dbCodeErrors';
 
 @Injectable()
 export class ProductsService {
@@ -27,24 +27,33 @@ export class ProductsService {
 		}
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+		const products = await this.productRepository.find();
+    return products;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+		const product = await this.productRepository.findOneBy({ id });
+
+		if(!product) throw new NotFoundException(`Product with ID '${id}' not found`)
+
+    return product;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+		const product = await this.productRepository.delete({ id });
+
+		if(product.affected === 0) throw new NotFoundException(`Product with ID '${id}' not found`)
+
+    return `Product with ID '${id}' deleted`;
   }
 
 	private handleDdExceptions (error: any) {
-		if(error.code === DB_ERROR_CODE.duplicateKeyConstrain)
+		if(error.code === DbErrorsCode.DUPLICATE_KEY_CONSTRAINT)
 			throw new BadRequestException(error.detail)
 
 		this.logger.error(`Unexpected error, check server logs`);
