@@ -129,6 +129,20 @@ export class ProductsService {
     return `Product with ID '${id}' deleted`;
   }
 
+	async deleteAllProducts() {
+		const query = this.productRepository.createQueryBuilder('product')
+
+		try {
+			return await query
+				.delete()
+				.where({})
+				.execute()
+
+		} catch (error) {
+			this.handleDdExceptions(error)
+		}
+	}
+
 	private handleDdExceptions (error: any) {
 		if(error.code === DbErrorsCode.DUPLICATE_KEY_CONSTRAINT)
 			throw new BadRequestException(error.detail)
