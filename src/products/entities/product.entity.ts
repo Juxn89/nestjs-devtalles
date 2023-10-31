@@ -35,7 +35,7 @@ export class Product {
 		productImage => productImage.product,
 		{ cascade: true }
 	)
-	images?: ProductImage
+	images?: ProductImage[]
 
 	@BeforeInsert()
 	@BeforeUpdate()

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, InternalServerErrorException, Logger, 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Product } from './entities/product.entity';
+import { Product, ProductImage } from './entities/';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import DbErrorsCode from 'src/common/dbCodeErrors';
@@ -15,15 +15,24 @@ export class ProductsService {
 
 	constructor(
 		@InjectRepository(Product)
-		private readonly productRepository: Repository<Product>
+		private readonly productRepository: Repository<Product>,
+
+		@InjectRepository(ProductImage)
+		private readonly productImageRepository: Repository<ProductImage>
 	) {}
 
   async create(createProductDto: CreateProductDto) {
 		try {
-			const product = this.productRepository.create(createProductDto);
+			const { images = [], ...newProduct } = createProductDto;
+			const product = this.productRepository.create({
+				...newProduct, 
+				images: images.map(image => this.productImageRepository.create({ url: image }))
+			});
+
 			await this.productRepository.save(product);
 
-			return product;
+			return { ...product, images };
+
 		} catch (error) {
 			this.handleDdExceptions(error)
 		}
@@ -68,7 +77,8 @@ export class ProductsService {
   async update(id: string, updateProductDto: UpdateProductDto) {
 		const product = await this.productRepository.preload({
 			id,
-			...updateProductDto
+			...updateProductDto,
+			images: []
 		})
 
 		if(!product)
