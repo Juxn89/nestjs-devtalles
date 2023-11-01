@@ -1,5 +1,6 @@
 #Others
 postgres/
+static/products/*.jpeg
 
 # Logs
 logs
