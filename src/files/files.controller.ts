@@ -5,10 +5,14 @@ import { Response } from 'express'
 
 import { FilesService } from './files.service';
 import { FileFilter, fileNamer } from './helpers/';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) {}
+  constructor(
+		private readonly filesService: FilesService,
+		private readonly configService: ConfigService
+	) {}
 
 	@Get('product/:imageName')
 	findProductImages(
@@ -31,7 +35,7 @@ export class FilesController {
 
 		console.log(file)
 
-		const secureURL = `${file.filename}`;
+		const secureURL = `${this.configService.get('HOST_API')}/files/product/${file.filename}`;
 
 		return {
 			file: file.originalname,
