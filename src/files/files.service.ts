@@ -9,8 +9,7 @@ export class FilesService {
 
 		if(!existsSync(path))
 			throw new NotFoundException(`No product found with name "${imageName}"`)
-
-		console.log(path)
-		return imageName;
+		
+		return path;
 	}
 }
