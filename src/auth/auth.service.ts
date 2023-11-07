@@ -3,7 +3,6 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 
-
 import { User } from './entities/users.entity';
 import { CreateUserDto, LoginUserDto } from './dto/';
 import dbCodeErrors from 'src/common/dbCodeErrors';
