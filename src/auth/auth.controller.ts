@@ -22,11 +22,15 @@ export class AuthController {
 
 	@Get('private')
 	@UseGuards(AuthGuard())	
-	privateRoute( @GetUser() user: User ) {
+	privateRoute(
+		@GetUser() user: User,
+		@GetUser('email') userEmail: User
+	){
 		return {
 			ok: true,
 			menssage: 'Hi from a private route',
-			user
+			user,
+			userEmail
 		}
 	}
 }
