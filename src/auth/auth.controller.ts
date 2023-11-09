@@ -5,8 +5,8 @@ import { IncomingHttpHeaders } from 'http';
 import { AuthService } from './auth.service';
 import { User } from './entities/users.entity';
 import { CreateUserDto, LoginUserDto } from './dto/';
-import { GetRawHeaders, GetUser, RoleProtected} from './decorators';
-import { UserRoleGuard } from './guards/user-role/user-role.guard';
+import { Auth, GetRawHeaders, GetUser, RoleProtected} from './decorators';
+import { UserRoleGuard } from './guards/user-role.guard';
 import { ValidRoles } from './interfaces';
 
 @Controller('auth')
@@ -46,6 +46,17 @@ export class AuthController {
 	@RoleProtected(ValidRoles.superUser)
 	@UseGuards( AuthGuard(), UserRoleGuard )
 	privateRoute2(
+		@GetUser() user: User,
+	) {
+		return {
+			ok: true,
+			user
+		}
+	}
+
+	@Get('private3')
+	@Auth(ValidRoles.admin)
+	privateRoute3(
 		@GetUser() user: User,
 	) {
 		return {
