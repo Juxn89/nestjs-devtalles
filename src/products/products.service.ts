@@ -8,6 +8,7 @@ import DbErrorsCode from 'src/common/dbCodeErrors';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from '../common/dtos/pagination.dto';
+import { User } from '../auth/entities/users.entity';
 
 @Injectable()
 export class ProductsService {
@@ -23,11 +24,12 @@ export class ProductsService {
 		private readonly dataSource: DataSource
 	) {}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user: User) {
 		try {
 			const { images = [], ...newProduct } = createProductDto;
 			const product = this.productRepository.create({
-				...newProduct, 
+				...newProduct,
+				user,
 				images: images.map(image => this.productImageRepository.create({ url: image }))
 			});
 
@@ -83,12 +85,13 @@ export class ProductsService {
     return this.ProductPlain(product)
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, user: User) {
 		const { images, ...updateProduct } = updateProductDto
 
 		const product = await this.productRepository.preload({
 			id,
-			...updateProduct
+			...updateProduct,
+			user
 		})
 
 		if(!product)
@@ -107,6 +110,7 @@ export class ProductsService {
 				product.images = await this.productImageRepository.findBy({ product: { id } })
 			}
 
+			product.user = user
 			await queryRunner.manager.save(product)
 
 			await queryRunner.commitTransaction()
