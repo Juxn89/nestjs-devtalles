@@ -1,19 +1,25 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ProductsService } from './products.service';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { PaginationDto } from '../common/dtos/pagination.dto';
-import { Auth, GetUser } from '../auth/decorators';
-import { ValidRoles } from '../auth/interfaces';
+import { Product } from './entities';
 import { User } from '../auth/entities/users.entity';
+import { ValidRoles } from '../auth/interfaces';
+import { Auth, GetUser } from '../auth/decorators';
+import { ProductsService } from './products.service';
+import { CreateProductDto, UpdateProductDto } from './dto/';
+import { PaginationDto } from '../common/dtos/pagination.dto';
+import { ProductResponses } from './decorators/product-response.decorator';
 
 @Controller('products')
+@ApiTags('Products')
 export class ProductsController {
 	constructor(private readonly productsService: ProductsService) {}
 	
   @Post()
 	@Auth(ValidRoles.user)
+	@ApiResponse({ status: 201, description: 'Product was created', type: Product })
+	@ApiResponse({ status: 400, description: 'Bad request' })
+	@ApiResponse({ status: 403, description: 'Forbidden. Token related.' })
   create(
 		@Body() createProductDto: CreateProductDto,
 		@GetUser() user: User
@@ -33,6 +39,7 @@ export class ProductsController {
 
   @Patch(':id')
 	@Auth(ValidRoles.admin)
+	@ProductResponses()
   update(
 		@Param('id', ParseUUIDPipe) id: string, 
 		@Body() updateProductDto: UpdateProductDto,
