@@ -63,6 +63,13 @@ export class AuthService {
 		}
 	}
 
+	async checkAuthStatus(user: User) {
+		return {
+			...user,
+			token: this.getJwtToken({ id: user.id })
+		}
+	}
+
 	private handleDbError = (error: any): never => {
 		if(error.code === dbCodeErrors.DUPLICATE_KEY_CONSTRAINT)
 			throw new BadRequestException(`${ error.detail }`)
