@@ -75,4 +75,12 @@ export class AuthService {
 		const token = this.jwtService.sign(payload);
 		return token;
 	}
+
+	async deleteUsers() {
+		const queryBuilder = this.userRepository.createQueryBuilder();
+		await queryBuilder
+					.delete()
+					.where({})
+					.execute()
+	}
 }
