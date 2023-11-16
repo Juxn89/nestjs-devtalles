@@ -47,5 +47,15 @@ const addListerners = (socket: Socket) => {
 
 	socket.on('messages-from-server', (payload: { fullName: string, message: string }) => {
 		console.log(payload)
+
+		const newMessage = `
+		<li>
+		  <strong>${ payload.fullName }</strong>
+		  <span>${ payload.message }</span>
+		</li>`
+
+		const li = document.createElement('li')
+		li.innerHTML = newMessage
+		messagesUl.append(li)
 	})
 }

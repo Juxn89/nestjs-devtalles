@@ -44,7 +44,7 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
 
 		// Emitir a todos incluyendo al client
 		this.webSocketServer.emit('messages-from-server', {
-			fullMessage: 'Me',
+			fullName: 'Me',
 			message: payload.message || 'no-message!'
 		})
 	}
