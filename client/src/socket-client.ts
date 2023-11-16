@@ -13,6 +13,7 @@ const addListerners = (socket: Socket) => {
 	const clientsUL = document.querySelector('#clientes-ul')!
 	const messageForm = document.querySelector<HTMLFormElement>('#message-form')!
 	const messageInput = document.querySelector<HTMLInputElement>('#message-input')!
+	const messagesUl = document.querySelector('#messages-ul')!
 
 	socket.on('connect', () => {
 		console.log('Connected! :)')
@@ -42,5 +43,9 @@ const addListerners = (socket: Socket) => {
 
 		socket.emit('message-from-client', { id: socket.id, message: messageInput.value } );
 		messageInput.value = '';
+	})
+
+	socket.on('messages-from-server', (payload: { fullName: string, message: string }) => {
+		console.log(payload)
 	})
 }
