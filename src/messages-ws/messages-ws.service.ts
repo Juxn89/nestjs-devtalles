@@ -21,6 +21,8 @@ export class MessagesWsService {
 	async registerClient(client: Socket, userId: string) {
 		try {
 			const user = await this.authService.findUserById(userId);
+			
+			this.checkUserConnection(userId)
 			this.connectedClients[client.id] = {
 				socket: client,
 				user: user
@@ -44,5 +46,16 @@ export class MessagesWsService {
 
 	getUserFullName(socketId: string) {
 		return this.connectedClients[socketId].user.fullName;
+	}
+
+	private checkUserConnection(userId: string) {
+		for (const cliendId of Object.keys(this.connectedClients)) {
+			const connectedClient = this.connectedClients[cliendId]
+
+			if(connectedClient.user.id === userId) {
+				connectedClient.socket.disconnect();
+				break
+			}
+		}
 	}
 }
