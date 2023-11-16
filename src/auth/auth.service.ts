@@ -90,4 +90,13 @@ export class AuthService {
 					.where({})
 					.execute()
 	}
+
+	async findUserById (userId) {
+		const user = await this.userRepository.findOneBy({ id: userId })
+
+		if(!user) throw new Error('User not found');
+		if(!user.isActive) throw new Error('User is not active')
+
+		return user;
+	}
 }
